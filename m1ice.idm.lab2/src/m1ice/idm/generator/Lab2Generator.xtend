@@ -56,7 +56,6 @@ class Lab2Generator extends AbstractGenerator {
 	import java.util.Scanner;
 	import java.util.ArrayList;
 	import java.util.List;
-	import java.util.Optional;
 	
 	public class «machineUpper» {
 	
@@ -77,13 +76,23 @@ class Lab2Generator extends AbstractGenerator {
 			«ENDFOR»
 		}
 		
-		public void next(String transition){
+		/**
+		 * Hande the state change.
+		 * @param transition, the transition name wanted by the user.
+		 */
+		 public String next(String transition){
 			«FOR transition: machine.transitions»
 			// «transition.name» transition from «transition.from.name» to «transition.to.name»
-			if(transition.equals("«transition.name»")) {
+			if(transition.toLowerCase().equals("«transition.name»".toLowerCase())) {
 				this.current = states.stream().filter(state -> state.getName().equals("«transition.to.name»")).findFirst().get();
+				return "Transition : «transition.name» from «transition.from.name» to «transition.to.name»";
 			}
+	
 			«ENDFOR»
+			else
+			{
+				return "transition " + transition + " does not exists.";
+			}
 		}
 		
 		public static void main(String[] args) {
@@ -92,22 +101,28 @@ class Lab2Generator extends AbstractGenerator {
 			«machineUpper» «machineLower» = new «machineUpper»();
 			
 			// First print the init state
-			System.out.println("Starting the StateMachine ... press 'exit' to stop.");
-			System.out.println("The init state is : " + «machineLower».current.getName());
+			System.out.println("Starting the «machineUpper» ... press 'exit' to stop.");
+			System.out.println("## The init state is : " + «machineLower».current.getName());
 	
 			Scanner scanner = new Scanner(System.in);
 			String entry = "";
 			// Main loop
 			while (!entry.equals("exit")) {
+				System.out.println("## Choose a transition/exit :");
 				entry = scanner.nextLine();
 				
 				// Change the desired state
-				«machineLower».next(entry);
-				System.out.println("The current state is : " + «machine.name.toFirstLower()».current.getName());
+				String result = «machineLower».next(entry);
+				
+				if (result != null){
+					System.out.println(result);
+				}
+				
+				System.out.println("## The current state is : " + «machineLower».current.getName());
 				
 			}
 			
-			System.out.println("StateMachine has been stopped.");
+			System.out.println("«machineUpper» has been stopped.");
 			
 		}
 		
@@ -126,6 +141,10 @@ class Lab2Generator extends AbstractGenerator {
 	def printAbstractState()'''
 	package «DEFAULT_PACKAGE»;
 	
+	/**
+	 * A State used by a {@Link «stateMachine.name.toFirstUpper()»}
+	 * @author generated
+	 */
 	public abstract class State {
 		
 		private String name;
@@ -146,6 +165,10 @@ class Lab2Generator extends AbstractGenerator {
 	'''
 	package «DEFAULT_PACKAGE»;
 	
+	/**
+	 * Represent a specific {@link State}.
+	 * @author generated
+	 */
 	public class «stateName» extends State {
 		
 		public «stateName»(){

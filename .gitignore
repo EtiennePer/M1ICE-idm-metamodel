@@ -1,2 +1,9 @@
 .metadata
 **/src-gen
+.DS_Store
+target
+bin
+*.java._trace
+*.java_trace
+*.smap
+**/xtend-gen
