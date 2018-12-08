@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/m1ice.idm.lab1/src-gen" creationIcons="false"
+    editDirectory="/m1ice.idm.lab1.edit/src-gen" editorDirectory="/m1ice.idm.lab1.editor/src-gen"
+    modelPluginID="m1ice.idm.lab1" modelName="Lab1" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0"
+    copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>lab1.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Lab1" basePackage="m1ice.idm" disposableProviderFactory="true"
+      ecorePackage="lab1.ecore#/">
+    <genClasses ecoreClass="lab1.ecore#//StateMachine">
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference lab1.ecore#//StateMachine/states"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lab1.ecore#//StateMachine/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference lab1.ecore#//StateMachine/transitions"/>
+    </genClasses>
+    <genClasses ecoreClass="lab1.ecore#//State">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lab1.ecore#//State/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lab1.ecore#//State/outgoing"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lab1.ecore#//State/incoming"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lab1.ecore#//State/init"/>
+    </genClasses>
+    <genClasses ecoreClass="lab1.ecore#//Transition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lab1.ecore#//Transition/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lab1.ecore#//Transition/from"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lab1.ecore#//Transition/to"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

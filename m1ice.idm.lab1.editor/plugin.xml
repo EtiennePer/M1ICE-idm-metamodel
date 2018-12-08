@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated lab1 -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="m1ice.idm.lab1.presentation.Lab1ModelWizardID"
+            name="%_UI_Lab1ModelWizard_label"
+            class="m1ice.idm.lab1.presentation.Lab1ModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/Lab1ModelFile.gif">
+         <description>%_UI_Lab1ModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated lab1 -->
+      <editor
+            id="m1ice.idm.lab1.presentation.Lab1EditorID"
+            name="%_UI_Lab1Editor_label"
+            icon="icons/full/obj16/Lab1ModelFile.gif"
+            extensions="lab1"
+            class="m1ice.idm.lab1.presentation.Lab1Editor"
+            contributorClass="m1ice.idm.lab1.presentation.Lab1ActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

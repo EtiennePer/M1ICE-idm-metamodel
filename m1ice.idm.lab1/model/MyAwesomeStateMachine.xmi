@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lab1:StateMachine
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:lab1="http://www.example.org/lab1"
+    xsi:schemaLocation="http://www.example.org/lab1 lab1.ecore">
+  <states name="Opened"
+      outgoing="//@transitions.0"
+      incoming="//@transitions.1"
+      init="true"/>
+  <states name="Closed"
+      outgoing="//@transitions.1"
+      incoming="//@transitions.0"/>
+  <transitions
+      name="Off"
+      from="//@states.0"
+      to="//@states.1"/>
+  <transitions
+      name="On"
+      from="//@states.1"
+      to="//@states.0"/>
+</lab1:StateMachine>
