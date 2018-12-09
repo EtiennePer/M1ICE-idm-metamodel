@@ -26,11 +26,15 @@ To test the plugin :
 An example of file would be :
 ~~~~
 stateMachine MetaModeledStateMachine
-	state opened
 	state closed init
+	state opened
 
-	transition OFF opened -> closed
+	transition OFF opened -> down
 	transition ON closed -> opened
+
+	state down
+	transition stop closed -> down
+	transition stop opened -> down
 ~~~~
 You can add transition or states, or rename every components.
 

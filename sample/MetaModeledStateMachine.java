@@ -14,8 +14,9 @@ public class MetaModeledStateMachine {
 		this.current = new Closed();
 		
 		// Adding every states
-		this.states.add(new Opened());
 		this.states.add(new Closed());
+		this.states.add(new Opened());
+		this.states.add(new Down());
 	}
 	
 	/**
@@ -23,16 +24,56 @@ public class MetaModeledStateMachine {
 	 * @param transition, the transition name wanted by the user.
 	 */
 	 public String next(String transition){
-		// OFF transition from opened to closed
+		// OFF transition from opened to down
 		if(transition.toLowerCase().equals("OFF".toLowerCase())) {
-			this.current = states.stream().filter(state -> state.getName().equals("closed")).findFirst().get();
-			return "Transition : OFF from opened to closed";
+			
+			// If the current state is opened
+			if("opened".equals(this.current.getName())) {
+			
+				this.current = states.stream().filter(state -> state.getName().equals("down")).findFirst().get();
+				return "Transition : OFF from opened to down";
+			} else {
+				return "## Can't run transition OFF because the current state is "+this.current.getName()+" and should be opened";
+			}
 		}
 	
 		// ON transition from closed to opened
 		if(transition.toLowerCase().equals("ON".toLowerCase())) {
-			this.current = states.stream().filter(state -> state.getName().equals("opened")).findFirst().get();
-			return "Transition : ON from closed to opened";
+			
+			// If the current state is closed
+			if("closed".equals(this.current.getName())) {
+			
+				this.current = states.stream().filter(state -> state.getName().equals("opened")).findFirst().get();
+				return "Transition : ON from closed to opened";
+			} else {
+				return "## Can't run transition ON because the current state is "+this.current.getName()+" and should be closed";
+			}
+		}
+	
+		// stop transition from closed to down
+		if(transition.toLowerCase().equals("stop".toLowerCase())) {
+			
+			// If the current state is closed
+			if("closed".equals(this.current.getName())) {
+			
+				this.current = states.stream().filter(state -> state.getName().equals("down")).findFirst().get();
+				return "Transition : stop from closed to down";
+			} else {
+				return "## Can't run transition stop because the current state is "+this.current.getName()+" and should be closed";
+			}
+		}
+	
+		// stop transition from opened to down
+		if(transition.toLowerCase().equals("stop".toLowerCase())) {
+			
+			// If the current state is opened
+			if("opened".equals(this.current.getName())) {
+			
+				this.current = states.stream().filter(state -> state.getName().equals("down")).findFirst().get();
+				return "Transition : stop from opened to down";
+			} else {
+				return "## Can't run transition stop because the current state is "+this.current.getName()+" and should be opened";
+			}
 		}
 	
 		else
@@ -47,7 +88,7 @@ public class MetaModeledStateMachine {
 		MetaModeledStateMachine metaModeledStateMachine = new MetaModeledStateMachine();
 		
 		// First print the init state
-		System.out.println("Starting the StateMachine ... press 'exit' to stop.");
+		System.out.println("Starting the MetaModeledStateMachine ... press 'exit' to stop.");
 		System.out.println("## The init state is : " + metaModeledStateMachine.current.getName());
 
 		Scanner scanner = new Scanner(System.in);
