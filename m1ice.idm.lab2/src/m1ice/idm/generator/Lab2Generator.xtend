@@ -84,8 +84,15 @@ class Lab2Generator extends AbstractGenerator {
 			«FOR transition: machine.transitions»
 			// «transition.name» transition from «transition.from.name» to «transition.to.name»
 			if(transition.toLowerCase().equals("«transition.name»".toLowerCase())) {
-				this.current = states.stream().filter(state -> state.getName().equals("«transition.to.name»")).findFirst().get();
-				return "Transition : «transition.name» from «transition.from.name» to «transition.to.name»";
+				
+				// If the current state is «transition.from.name»
+				if("«transition.from.name»".equals(this.current.getName())) {
+				
+					this.current = states.stream().filter(state -> state.getName().equals("«transition.to.name»")).findFirst().get();
+					return "Transition : «transition.name» from «transition.from.name» to «transition.to.name»";
+				} else {
+					return "## Can't run transition «transition.name» because the current state is "+this.current.getName()+" and should be «transition.from.name»";
+				}
 			}
 	
 			«ENDFOR»
