@@ -6,4 +6,3 @@ bin
 *.java._trace
 *.java_trace
 *.smap
-**/xtend-gen
