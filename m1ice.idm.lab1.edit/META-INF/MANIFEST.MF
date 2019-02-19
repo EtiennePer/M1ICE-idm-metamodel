@@ -2,6 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: m1ice.idm.lab1.edit;singleton:=true
+Automatic-Module-Name: m1ice.idm.lab1.edit
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: m1ice.idm.lab1.provider.Lab1EditPlugin$Implementation

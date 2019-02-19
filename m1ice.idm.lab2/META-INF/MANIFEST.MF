@@ -12,7 +12,8 @@ Require-Bundle: m1ice.idm.lab1,
  org.eclipse.xtext.xbase.lib,
  org.antlr.runtime,
  org.eclipse.xtext.util,
- org.eclipse.xtend.lib
+ org.eclipse.xtend.lib,
+ fr.inria.diverse.k3.al.annotationprocessor.plugin;bundle-version="3.2.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: m1ice.idm.parser.antlr.internal,
  m1ice.idm.formatting2,

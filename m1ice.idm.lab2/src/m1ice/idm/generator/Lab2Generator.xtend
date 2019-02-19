@@ -10,6 +10,15 @@ import org.eclipse.xtext.generator.IGeneratorContext
 import m1ice.idm.lab1.StateMachine
 import m1ice.idm.lab1.State
 import m1ice.idm.lab1.Transition
+import fr.inria.diverse.k3.al.annotationprocessor.Aspect;
+import static extension m1ice.idm.generator.StateMachineAspect.*;
+import static extension m1ice.idm.generator.StateAspect.*;
+import static extension m1ice.idm.generator.TransitionAspect.*;
+import fr.inria.diverse.k3.al.annotationprocessor.Step
+import fr.inria.diverse.k3.al.annotationprocessor.ReplaceAspectMethod
+import fr.inria.diverse.k3.al.annotationprocessor.Singleton
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 /**
  * Generates code from your model files on save.
@@ -217,5 +226,94 @@ class Lab2Generator extends AbstractGenerator {
 	}
 	'''
 	}
+}
+
+
+@Singleton
+public class Console {
+
+	def String readLine(String format, Object... args) {
+		if (System.console() != null) {
+			return System.console().readLine(format, args);
+		}
+		println(String.format(format, args));
+		var reader = new BufferedReader(new InputStreamReader(System.in));
+		return reader.readLine();
+	}
+}
+
+@Aspect(className=typeof(StateMachine))
+class StateMachineAspect {
+	
+	public State currentState
+	
+	public String underProcessTrigger
+	public String consummedString
+	
+	
+	def public void initializeFSM(){
+		println("init FSM")
+		_self.currentState = _self.states.findFirst[st | st.init == true];
+	}
+	
+	// Operational semantic
+	def void run() {
+
+		// reset if there is no current state
+		if (_self.currentState == null) {
+			_self.currentState = _self.states.findFirst[st | st.init == true];
+		}
+
+		var str = "init"
+		while (str != "quit") {
+			println("Current state : " + _self.currentState.name)
+			str = Console.instance.readLine("give me a letter : ")
+			if (str == "quit") {
+				println("")
+				println("quitting ...")
+			} else if (str == "print") {
+				println("")
+
+			} else
+				println(str)
+			println("stepping...")
+			try { 
+				var textRes = _self.currentState.step(str)
+				if (textRes == void || textRes == "")
+					textRes = "NC"
+
+				println("string produced : " + textRes)
+			} catch (
+
+			Exception err) {
+				println(err.toString)
+				str = "quit"
+				}
+		}
+	}
+}
+
+@Aspect(className=typeof(Transition))
+class TransitionAspect {
+	
+	@Step
+	def public String fire(){
+		println("firing transition " + _self.name + " go to state " + _self.to.name)
+		val fsm = _self.from.fsm
+		fsm.currentState = _self.to
+		return _self.name
+	}
+}
+
+@Aspect(className=typeof(State))
+class StateAspect{
+	
+	@Step
+	def public String step(String inputString) {
+		val validTransitions = _self.outgoing.filter[t | inputString.compareTo(t.name) == 0];
 		
+		if(validTransitions.size > 0) {
+			return validTransitions.get(0).fire
+		}
+	}
 }
