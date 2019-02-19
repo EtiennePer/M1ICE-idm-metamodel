@@ -45,3 +45,22 @@ You can now run the main in "MetaModeledStateMachine.java (or the file correspon
 
 ## Sample files
 Sample files (model and generated) can be found in **sample** folder.
+
+# Build a VM for your StateMachine DSL
+## What has been change from the previous version
+The only way I found to launch the code specified in "Aspects" classes is to call an init method inside of my constructor (see next Figure):  
+
+![Generator update screenshot](screenshots/generator_update.png)
+
+See other changes in **m1ice.idm.lab2/src/.../generator/Lab2Generator.xtend**
+
+With it, when you save the ".q" file, as we saw in the last part, the system is launched. It basically does the same things than the "main" generated inside the StateMachine file, except that the concept is not the same. Here the code is executed directly and is not visible by the user.
+
+**When you save you should see something like this : **
+
+The remaining problem is that when you launch the VM, the console on the
+second launched eclipse doesn't respond (at least on mine). But you can at least enter transition names an see that **it's working when you enter it on gemoc**.
+
+![Generator update screenshot](screenshots/working.png)
+
+### The project named idm.compiler.exectest can be used to run ".q" file after you run the new eclipse Configuration from Gemoc.
